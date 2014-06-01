@@ -1,0 +1,3 @@
+- name: odoo upstart script
+  template: src=odoo.conf.j2 dest=/etc/init/odoo.conf owner=root group=root mode=0644
+  notify: restart odoo

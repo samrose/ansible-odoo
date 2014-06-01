@@ -1,3 +1,6 @@
+- include: dependencies.yml
+- include: wkhtmltopdf.yml
 - include: odoo.yml
+- include: upstart.yml
 - include: db.yml
 - include: options.yml

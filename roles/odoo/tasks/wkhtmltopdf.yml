@@ -1,0 +1,14 @@
+- name: check if wkhtmltox exists
+  stat: path=/usr/local/src/wkhtmltox-linux-amd64_0.12.0-03c001d.tar.xz
+  register: wkhtmltox
+- name: download wkhtmltopdf tar
+  get_url: url=http://downloads.sourceforge.net/project/wkhtmltopdf/0.12.0/wkhtmltox-linux-amd64_0.12.0-03c001d.tar.xz dest=/usr/local/src
+  when: not wkhtmltox.stat.exists
+- name: unarchive wkhtmltopdf tar
+  shell: tar xf wkhtmltox-linux-amd64_0.12.0-03c001d.tar.xz chdir=/usr/local/src creates=/usr/local/src/wkhtmltox/bin/wkhtmltopdf
+- name: check if wkhtmltopdf exists
+  stat: path=/usr/local/bin/wkhtmltopdf
+  register: wkhtmltopdf
+- name: copy wkhtmltopdf to bin
+  shell: cp /usr/local/src/wkhtmltox/bin/wkhtmltopdf /usr/local/bin
+  when: not wkhtmltopdf.stat.exists

@@ -1,0 +1,4 @@
+- name: aptitude update
+  apt: update_cache=yes
+- name: aptitude upgrade
+  apt: upgrade=yes

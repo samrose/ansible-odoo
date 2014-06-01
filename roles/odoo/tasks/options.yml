@@ -1,0 +1,4 @@
+- name: set options for odoo
+  ini_file: dest=/usr/local/odoo/odoo-server.conf section=options option={{ item.key }} value={{ item.value }}
+  with_dict: odoo
+  notify: restart odoo

@@ -1,0 +1,3 @@
+- include: odoo.yml
+- include: db.yml
+- include: options.yml

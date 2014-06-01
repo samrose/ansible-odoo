@@ -1,0 +1,8 @@
+description "Odoo 8.0"
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+respawn
+
+exec su -s /bin/sh -c 'exec "$0" "$@"' odoo -- /usr/local/odoo/openerp-server -c /usr/local/odoo/odoo-server.conf --logfile=/usr/local/odoo/odoo-8.0.log $@

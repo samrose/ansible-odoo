@@ -1,0 +1,11 @@
+- name: install postgresql
+  apt: pkg=postgresql state=present
+- name: create postgresql user
+  postgresql_user: name={{ odoo.db_user }} password={{ odoo.db_password or "NULL" }} role_attr_flags=CREATEDB,NOCREATEROLE,NOSUPERUSER
+  sudo_user: postgres
+  when: not odoo.db_host
+  notify: restart odoo
+- name: stop postgresql server
+  service: name=postgresql state=stopped
+  when: odoo.db_host
+  notify: restart odoo

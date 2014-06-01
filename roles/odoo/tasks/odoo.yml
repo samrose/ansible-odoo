@@ -1,0 +1,46 @@
+- name: create odoo user
+  user: name=odoo
+- name: install git
+  apt: pkg=git state=present
+- name: checkout odoo from github
+  git: repo=git://github.com/odoo/odoo.git dest=/usr/local/odoo
+- name: install odoo dependencies
+  apt: pkg={{item}} state=present
+  with_items:
+    - adduser
+    - python
+    - postgresql-client
+    - python-dateutil
+    - python-decorator
+    - python-docutils
+    - python-feedparser
+    - python-gdata
+    - python-imaging
+    - python-jinja2
+    - python-ldap
+    - python-libxslt1
+    - python-lxml
+    - python-mako
+    - python-mock
+    - python-openid
+    - python-psutil
+    - python-psycopg2
+    - python-pybabel
+    - python-pychart
+    - python-pydot
+    - python-pyparsing
+    - python-reportlab
+    - python-requests
+    - python-simplejson
+    - python-tz
+    - python-unittest2
+    - python-vatnumber
+    - python-vobject
+    - python-webdav
+    - python-werkzeug
+    - python-xlwt
+    - python-yaml
+    - python-zsi
+- name: odoo upstart script
+  template: src=odoo.conf.j2 dest=/etc/init/odoo.conf owner=root group=root mode=0644
+  notify: restart odoo

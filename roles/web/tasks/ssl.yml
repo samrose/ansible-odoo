@@ -1,0 +1,6 @@
+- name: copy ssl certs
+  copy: src={{ ssl.src }} dest=/etc/nginx owner=root group=root mode=0644
+  notify: restart nginx
+- name: create ssl.conf
+  template: src=ssl.conf.j2 dest=/etc/nginx/conf.d/ssl.conf owner=root group=root mode=0644
+  notify: restart nginx

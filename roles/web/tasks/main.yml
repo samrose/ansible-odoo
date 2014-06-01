@@ -1,0 +1,6 @@
+- name: install nginx
+  apt: pkg=nginx state=present
+  notify: restart nginx
+- include: ssl.yml
+  when: ssl is defined
+- include: site.yml

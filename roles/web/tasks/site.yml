@@ -1,0 +1,9 @@
+- name: disable default site
+  file: path=/etc/nginx/sites-enabled/default state=absent
+  notify: restart nginx
+- name: create nginx site for odoo
+  template: src=odoo_site.j2 dest=/etc/nginx/sites-available/odoo_site owner=root group=root mode=0644
+  notify: restart nginx
+- name: enable nginx site for odoo
+  file: src=/etc/nginx/sites-available/odoo_site dest=/etc/nginx/sites-enabled/odoo_site owner=root group=root state=link
+  notify: restart nginx

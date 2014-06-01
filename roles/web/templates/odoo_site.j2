@@ -1,0 +1,37 @@
+{% if ssl is defined %}
+server {
+  listen 80;
+{% if domain_name is defined %}
+  server_name {{ domain_name }};
+{% endif %}
+  rewrite ^ https://$server_name$request_uri? permanent;
+}
+{% endif %}
+
+server {
+{% if ssl is defined %}
+  listen 443 ssl;
+{% else %}
+  listen 80;
+{% endif %}
+{% if domain_name is defined %}
+  server_name {{ domain_name }};
+{% endif %}
+
+  gzip on;
+  gzip_disable "msie6";
+  gzip_vary on;
+  gzip_proxied any;
+  gzip_comp_level 6;
+  gzip_buffers 16 8k;
+  gzip_http_version 1.1;
+  gzip_types text/plain text/css application/json application/x-javascript application/javascript 
+    text/xml application/xml application/xml+rss text/javascript;
+
+  location / {
+    proxy_pass http://127.0.0.1:8069;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
+}

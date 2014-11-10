@@ -3,4 +3,4 @@
 - name: install git
   apt: pkg=git state=present
 - name: checkout odoo from github
-  git: repo=git://github.com/odoo/odoo.git dest=/usr/local/odoo
+  git: repo=git://github.com/odoo/odoo.git dest=/usr/local/odoo accept_hostkey=yes
